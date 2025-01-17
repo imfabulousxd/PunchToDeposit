@@ -1,0 +1,6 @@
+name: ClickToDeposit
+version: 1.0
+main: me.dexwi.ClickToDeposit.ClickToDeposit
+api-version: 1.8
+description: A simple Spigot plugin.
+softdepend: [BedWars1058]
