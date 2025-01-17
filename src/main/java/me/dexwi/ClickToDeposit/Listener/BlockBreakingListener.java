@@ -5,11 +5,9 @@ import com.andrei1058.bedwars.api.arena.IArena;
 import com.andrei1058.bedwars.api.arena.team.ITeam;
 import com.andrei1058.bedwars.api.configuration.ConfigPath;
 import me.dexwi.ClickToDeposit.ClickToDeposit;
-import net.minecraft.server.v1_16_R3.Tuple;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
-import org.bukkit.block.EnderChest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,9 +15,6 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Vector;
-
-import static me.dexwi.ClickToDeposit.ClickToDeposit.bedwars;
 import static me.dexwi.ClickToDeposit.ClickToDeposit.log;
 
 public class BlockBreakingListener implements Listener {
