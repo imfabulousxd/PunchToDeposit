@@ -93,9 +93,7 @@ public class BlockBreakingListener implements Listener {
         }
         if (owner != null) {
             if (!owner.isMember(p)) {
-                if (!(owner.getMembers().isEmpty() && owner.isBedDestroyed())) {
-                    return false;
-                }
+                return owner.getMembers().isEmpty() && owner.isBedDestroyed();
             }
         }
         return true;

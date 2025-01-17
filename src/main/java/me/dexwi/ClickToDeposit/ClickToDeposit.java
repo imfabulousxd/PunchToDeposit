@@ -36,6 +36,7 @@ public class ClickToDeposit extends JavaPlugin {
         getLogger().info("ClickToDeposit Disabled!");
     }
 
+    @SuppressWarnings("unused")
     public static ClickToDeposit getInstance() {
         return instance;
     }
