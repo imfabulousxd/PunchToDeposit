@@ -27,7 +27,10 @@ public class ClickToDeposit extends JavaPlugin {
         }
         bedwars = Bukkit.getServicesManager().getRegistration(BedWars.class).getProvider();
 
+        Messages.setupMessages();
+
         getServer().getPluginManager().registerEvents(new BlockBreakingListener(), this);
+
         getLogger().info("ClickToDeposit Enabled!");
     }
 

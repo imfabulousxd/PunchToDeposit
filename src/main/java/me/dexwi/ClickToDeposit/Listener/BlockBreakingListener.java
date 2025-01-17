@@ -4,7 +4,9 @@ import com.andrei1058.bedwars.api.BedWars;
 import com.andrei1058.bedwars.api.arena.IArena;
 import com.andrei1058.bedwars.api.arena.team.ITeam;
 import com.andrei1058.bedwars.api.configuration.ConfigPath;
+import com.andrei1058.bedwars.api.language.Language;
 import me.dexwi.ClickToDeposit.ClickToDeposit;
+import me.dexwi.ClickToDeposit.Messages;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -14,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import static me.dexwi.ClickToDeposit.ClickToDeposit.log;
 
@@ -24,12 +27,12 @@ public class BlockBreakingListener implements Listener {
         if (
                 item == null ||
                 item.getAmount() == 0 ||
-                item.getType() != Material.WOOD_SWORD ||
-                item.getType() != Material.GOLD_SWORD ||
-                item.getType() != Material.STONE_SWORD ||
-                item.getType() != Material.IRON_SWORD ||
-                item.getType() != Material.DIAMOND_SWORD ||
-                item.getType() != Material.COMPASS
+                item.getType() == Material.WOOD_SWORD ||
+                item.getType() == Material.GOLD_SWORD ||
+                item.getType() == Material.STONE_SWORD ||
+                item.getType() == Material.IRON_SWORD ||
+                item.getType() == Material.DIAMOND_SWORD ||
+                item.getType() == Material.COMPASS
         ) {
             return;
         }
@@ -60,24 +63,22 @@ public class BlockBreakingListener implements Listener {
         }
 
         if (!itemStackFitsInInventory(inv, item)) {
-            player.sendMessage(String.format(
-                "Not enough space to deposit x%d %s to your %s!",
-                item.getAmount(),
-                (item.getItemMeta().hasDisplayName()) ? item.getItemMeta().getDisplayName()
-                        : item.getType().toString(),
-                (event.getBlock().getType() == Material.CHEST) ? "Team Chest" : "Ender Chest")
+            player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_FAILURE)
+                    .replace("{item_amount}", Integer.toString(item.getAmount()))
+                    .replace("{item_name}", (item.getItemMeta().hasDisplayName()) ?
+                            item.getItemMeta().getDisplayName() : getReadableItemName(item))
+                    .replace("{chest_type}", Language.getMsg(player, (block.getType() == Material.CHEST) ? Messages.CHEST_NAME : Messages.ENDER_CHEST_NAME))
             );
             return;
         }
 
         inv.addItem(new ItemStack(item));
 
-        player.sendMessage(String.format(
-                "You deposited x%d %s to your %s!",
-                item.getAmount(),
-                (item.getItemMeta().hasDisplayName()) ? item.getItemMeta().getDisplayName()
-                        : item.getType().toString(),
-                (event.getBlock().getType() == Material.CHEST) ? "Team Chest" : "Ender Chest")
+        player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_SUCCESS)
+                .replace("{item_amount}", Integer.toString(item.getAmount()))
+                .replace("{item_name}", (item.getItemMeta().hasDisplayName()) ?
+                        item.getItemMeta().getDisplayName() : getReadableItemName(item))
+                .replace("{chest_type}", Language.getMsg(player, (block.getType() == Material.CHEST) ? Messages.CHEST_NAME : Messages.ENDER_CHEST_NAME))
         );
 
         player.getInventory().remove(item);
@@ -116,5 +117,31 @@ public class BlockBreakingListener implements Listener {
             }
         }
         return false;
+    }
+
+    private static String getReadableItemName(ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) {
+            return "Nothing";
+        }
+
+        ItemMeta meta = item.getItemMeta();
+
+        if (meta != null && meta.hasDisplayName()) {
+            return meta.getDisplayName();
+        }
+
+        return formatMaterialName(item.getType());
+    }
+
+    private static String formatMaterialName(Material material) {
+        String name = material.toString().toLowerCase().replace('_', ' ');
+
+        String[] words = name.split(" ");
+        StringBuilder formattedName = new StringBuilder();
+        for (String word : words) {
+            formattedName.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1)).append(" ");
+        }
+
+        return formattedName.toString().trim();
     }
 }
