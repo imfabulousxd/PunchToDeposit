@@ -16,7 +16,6 @@ import static me.dexwi.ClickToDeposit.ClickToDeposit.*;
 public class PlayerListener implements Listener {
     @EventHandler
     public void playerRejoined(PlayerReJoinEvent event) {
-        log.info(String.format("Player %s re-joined!", event.getPlayer().getName()));
         Player player = event.getPlayer();
         IArena arena = event.getArena();
         ITeam team = event.getArena().getExTeam(player.getUniqueId());
@@ -42,7 +41,6 @@ public class PlayerListener implements Listener {
         if (!victimTeam.isBedDestroyed()) {
             return;
         }
-        log.info(String.format("Player %s Eliminated!", victim.getName()));
 
         IArena arena = event.getArena();
         for (ITeam team: arena.getTeams()) {

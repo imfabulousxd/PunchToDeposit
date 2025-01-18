@@ -13,7 +13,6 @@ import static me.dexwi.ClickToDeposit.ClickToDeposit.*;
 public class TeamListener implements Listener {
     @EventHandler
     public void teamEliminated(TeamEliminatedEvent event) {
-        log.info(String.format("Team %s Eliminated!", event.getTeam().getName()));
 
         IArena arena = event.getArena();
         ITeam eliminatedTeam = event.getTeam();

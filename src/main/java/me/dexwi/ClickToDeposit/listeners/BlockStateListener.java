@@ -131,7 +131,6 @@ public class BlockStateListener implements Listener {
                 return true;
             } else if (is.getData() == item.getData()) {
                 int maxAddable = is.getMaxStackSize() - is.getAmount();
-                log.info(String.format("%d", maxAddable));
                 remainingItemCount -= Math.min(maxAddable, remainingItemCount);
             }
 

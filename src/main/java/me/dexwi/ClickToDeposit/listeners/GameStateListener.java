@@ -25,7 +25,6 @@ public class GameStateListener implements Listener {
         if (event.getNewState() != GameState.playing) {
             return;
         }
-        log.info("Game Start!");
 
         IArena arena = event.getArena();
         World world = arena.getWorld();
@@ -41,8 +40,6 @@ public class GameStateListener implements Listener {
                         Block block = world.getBlockAt(teamSpawnPoint.getBlockX()+x, teamSpawnPoint.getBlockY()+y, teamSpawnPoint.getBlockZ()+z);
                         if (!chest && block.getType() == Material.CHEST) {
                             // Display hologram over it for team players
-                             log.info("chest: " + block.getLocation().toString());
-
                             gameChestLocations.get(arena).put(team, block.getLocation());
 
                             Hologram chestHologram = new Hologram(block.getLocation(), Messages.CHEST_HOLOGRAM);
@@ -54,8 +51,6 @@ public class GameStateListener implements Listener {
                             chest = true;
                         } else if (!enderChest && block.getType() == Material.ENDER_CHEST) {
                             // Display hologram over it all players
-                             log.info("ender chest: " + block.getLocation().toString());
-
                             enderChestLocations.get(arena).add(block.getLocation());
 
                             Hologram enderChestHologram = new Hologram(block.getLocation(), Messages.CHEST_HOLOGRAM);
@@ -83,7 +78,6 @@ public class GameStateListener implements Listener {
         if (event.getNewState() != GameState.restarting) {
             return;
         }
-        log.info("Game End!");
 
         IArena arena = event.getArena();
 
