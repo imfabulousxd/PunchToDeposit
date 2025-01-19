@@ -25,17 +25,6 @@ public class Hologram implements Listener {
 
     public Hologram(Location location, String messagePath) {
         path = messagePath;
-//        armorStand = new EntityArmorStand(
-//                ((CraftWorld) location.getWorld()).getHandle()
-//        );
-//        armorStand.setLocation(location.getX() + 0.5,
-//                location.getY() - 1,
-//                location.getZ() + 0.5, 0, 0);
-//        armorStand.setCustomNameVisible(true);
-//        armorStand.setInvisible(true);
-//        armorStand.setGravity(false);
-//        armorStand.setBasePlate(false);
-//        armorStand.setArms(false);
         EntityArmorStand entityArmorStand = new EntityArmorStand(
                 ((CraftWorld) location.getWorld()).getHandle()
         );
