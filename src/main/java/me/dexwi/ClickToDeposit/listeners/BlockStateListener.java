@@ -107,7 +107,7 @@ public class BlockStateListener implements Listener {
                 .replace("{chest_type}", Language.getMsg(player, (block.getType() == Material.CHEST) ? Messages.CHEST_NAME : Messages.ENDER_CHEST_NAME))
         );
 
-        player.getInventory().remove(item);
+        player.getInventory().setItemInHand(null);
     }
 
     private static boolean canOpenChest(IArena a, Block block, Player p) {
