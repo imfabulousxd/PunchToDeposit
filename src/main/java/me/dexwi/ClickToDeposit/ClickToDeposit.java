@@ -20,9 +20,9 @@ public class ClickToDeposit extends JavaPlugin {
     private static ClickToDeposit instance;
     public static BedWars bedwars;
     public static Logger log;
-    public static HashMap<IArena, HashMap<ITeam, Location>> gameChestLocations = new HashMap<>();
-    public static HashMap<IArena, Set<Location>> enderChestLocations = new HashMap<>();
-    public static HashMap<Location, Hologram> chestHolograms = new HashMap<>();
+    public static final HashMap<IArena, HashMap<ITeam, Location>> gameChestLocations = new HashMap<>();
+    public static final HashMap<IArena, Set<Location>> enderChestLocations = new HashMap<>();
+    public static final HashMap<Location, Hologram> chestHolograms = new HashMap<>();
 
     @Override
     public void onLoad() {
@@ -32,7 +32,7 @@ public class ClickToDeposit extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if (Bukkit.getPluginManager().getPlugin("Bedwars2023") == null) {
+        if (Bukkit.getPluginManager().getPlugin("BedWars2023") == null) {
             getLogger().severe("Bedwars2023 was not found. Disabling...");
             Bukkit.getPluginManager().disablePlugin(this);
             return;

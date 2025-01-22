@@ -3,6 +3,7 @@ package me.dexwi.ClickToDeposit.listeners;
 import com.tomkeuper.bedwars.api.arena.GameState;
 import com.tomkeuper.bedwars.api.arena.IArena;
 import com.tomkeuper.bedwars.api.arena.team.ITeam;
+import com.tomkeuper.bedwars.api.events.gameplay.GameEndEvent;
 import com.tomkeuper.bedwars.api.events.gameplay.GameStateChangeEvent;
 import me.dexwi.ClickToDeposit.Messages;
 import me.dexwi.ClickToDeposit.utils.Hologram;
@@ -74,11 +75,7 @@ public class GameStateListener implements Listener {
     }
 
     @EventHandler
-    public void onGameEnd(GameStateChangeEvent event) {
-        if (event.getNewState() != GameState.restarting) {
-            return;
-        }
-
+    public void onGameEnd(GameEndEvent event) {
         IArena arena = event.getArena();
 
         for (Location chestLocation: gameChestLocations.get(arena).values()) {

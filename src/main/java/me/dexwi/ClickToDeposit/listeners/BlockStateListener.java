@@ -6,8 +6,8 @@ import com.tomkeuper.bedwars.api.arena.team.ITeam;
 import com.tomkeuper.bedwars.api.language.Language;
 import me.dexwi.ClickToDeposit.ClickToDeposit;
 import me.dexwi.ClickToDeposit.Messages;
-import me.dexwi.ClickToDeposit.utils.Bedwars;
 import me.dexwi.ClickToDeposit.utils.Blocks;
+import me.dexwi.ClickToDeposit.utils.DepositableItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -43,26 +43,7 @@ public class BlockStateListener implements Listener {
         }
 
         ItemStack item = event.getItemInHand();
-        if (
-                item == null ||
-                item.getAmount() == 0 ||
-                item.getType() == Material.WOOD_SWORD ||
-                item.getType() == Material.GOLD_SWORD ||
-                item.getType() == Material.STONE_SWORD ||
-                item.getType() == Material.IRON_SWORD ||
-                item.getType() == Material.DIAMOND_SWORD ||
-                item.getType() == Material.COMPASS ||
-                item.getType() == Material.WOOD_PICKAXE ||
-                item.getType() == Material.GOLD_PICKAXE ||
-                item.getType() == Material.STONE_PICKAXE ||
-                item.getType() == Material.IRON_PICKAXE ||
-                item.getType() == Material.DIAMOND_PICKAXE ||
-                item.getType() == Material.WOOD_AXE ||
-                item.getType() == Material.GOLD_AXE ||
-                item.getType() == Material.IRON_AXE ||
-                item.getType() == Material.DIAMOND_AXE ||
-                item.getType() == Material.SHEARS
-        ) {
+        if (item == null || item.getAmount() == 0) {
             return;
         }
 
@@ -79,7 +60,14 @@ public class BlockStateListener implements Listener {
 
         Inventory inv;
         if (event.getBlock().getType() == Material.CHEST) {
-            if (!canOpenChest(arena, block, player)) {
+            ITeam chestOwner = chestOwner(arena, block);
+            if (chestOwner == null) {
+                return;
+            } else if (chestOwner != arena.getTeam(player)) {
+                player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_FAILURE_NOT_ELIMINATED_TEAM_CHEST)
+                        .replace("{team_color}", chestOwner.getColor().chat().toString())
+                        .replace("{team_name}", chestOwner.getDisplayName(Language.getPlayerLanguage(player)))
+                );
                 return;
             }
             Chest chest = (Chest) block.getState();
@@ -91,7 +79,7 @@ public class BlockStateListener implements Listener {
         }
 
         if (!itemStackFitsInInventory(inv, item)) {
-            player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_FAILURE)
+            player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_FAILURE_CHEST_FULL)
                     .replace("{item_amount}", Integer.toString(item.getAmount()))
                     .replace("{item_name}", getReadableItemName(item, player))
                     .replace("{chest_type}", Language.getMsg(player, (block.getType() == Material.CHEST) ? Messages.CHEST_NAME : Messages.ENDER_CHEST_NAME))
@@ -99,27 +87,36 @@ public class BlockStateListener implements Listener {
             return;
         }
 
+        DepositableItem depositableItem = DepositableItem.items.get(item.getType());
+        if (depositableItem != null && item.getAmount() < depositableItem.minimumAmount) {
+            player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_FAILURE_MINIMUM_ITEM)
+                    .replace("{item_minimum_amount}", Integer.toString(depositableItem.minimumAmount))
+            );
+            return;
+        }
+
         inv.addItem(new ItemStack(item));
 
-        player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_SUCCESS)
+        String itemDisplayName = (depositableItem != null) ? depositableItem.getDisplayName(player) : getReadableItemName(item, player);
+
+                player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_SUCCESS)
                 .replace("{item_amount}", Integer.toString(item.getAmount()))
-                .replace("{item_name}", getReadableItemName(item, player))
+                .replace("{item_name}", itemDisplayName)
                 .replace("{chest_type}", Language.getMsg(player, (block.getType() == Material.CHEST) ? Messages.CHEST_NAME : Messages.ENDER_CHEST_NAME))
         );
 
         player.getInventory().setItemInHand(null);
     }
 
-    private static boolean canOpenChest(IArena a, Block block, Player p) {
-        ITeam playerTeam = a.getTeam(p);
+    private static ITeam chestOwner(IArena a, Block block) {
         for (Map.Entry<ITeam, Location> entry: gameChestLocations.get(a).entrySet()) {
             if (
                     Blocks.locationEquals(entry.getValue(), block.getLocation())
             ) {
-                return playerTeam == entry.getKey() || Bedwars.isEliminated(entry.getKey());
+                return entry.getKey();
             }
         }
-        return false;
+        return null;
     }
 
     private static boolean itemStackFitsInInventory(Inventory inventory, ItemStack item) {
@@ -152,6 +149,7 @@ public class BlockStateListener implements Listener {
         }
 
         String rt = getMaterialName(item.getType(), player);
+        //noinspection ReplaceNullCheck
         if (rt == null) {
             return formatMaterialName(item.getType());
         } else {
