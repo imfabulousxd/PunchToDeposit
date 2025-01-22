@@ -39,7 +39,9 @@ public class BlockStateListener implements Listener {
     @EventHandler
     public void blockBreakingEvent(BlockDamageEvent event) {
         Block block = event.getBlock();
-        if (block.getType() != Material.CHEST && block.getType() != Material.ENDER_CHEST) {
+        boolean enderChest = block.getType() == Material.ENDER_CHEST;
+        boolean teamChest = block.getType() == Material.CHEST;
+        if (!enderChest && !teamChest) {
             return;
         }
 
@@ -59,12 +61,14 @@ public class BlockStateListener implements Listener {
             return;
         }
 
+        boolean otherTeamChest = false;
         Inventory inv;
+        ITeam chestOwner = null;
         if (event.getBlock().getType() == Material.CHEST) {
-            ITeam chestOwner = chestOwner(arena, block);
+            chestOwner = chestOwner(arena, block);
             if (chestOwner == null) {
                 return;
-            } else if (chestOwner != arena.getTeam(player) && !Bedwars.isEliminated(chestOwner)) {
+            } else if ((otherTeamChest = (chestOwner != arena.getTeam(player))) && !Bedwars.isEliminated(chestOwner)) {
                 player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_FAILURE_NOT_ELIMINATED_TEAM_CHEST)
                         .replace("{team_color}", chestOwner.getColor().chat().toString())
                         .replace("{team_name}", chestOwner.getDisplayName(Language.getPlayerLanguage(player)))
@@ -83,7 +87,6 @@ public class BlockStateListener implements Listener {
             player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_FAILURE_CHEST_FULL)
                     .replace("{item_amount}", Integer.toString(item.getAmount()))
                     .replace("{item_name}", getReadableItemName(item, player))
-                    .replace("{chest_type}", Language.getMsg(player, (block.getType() == Material.CHEST) ? Messages.CHEST_NAME : Messages.ENDER_CHEST_NAME))
             );
             return;
         }
@@ -100,11 +103,24 @@ public class BlockStateListener implements Listener {
 
         String itemDisplayName = (depositableItem != null) ? depositableItem.getDisplayName(player) : getReadableItemName(item, player);
 
-                player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_SUCCESS)
-                .replace("{item_amount}", Integer.toString(item.getAmount()))
-                .replace("{item_name}", itemDisplayName)
-                .replace("{chest_type}", Language.getMsg(player, (block.getType() == Material.CHEST) ? Messages.CHEST_NAME : Messages.ENDER_CHEST_NAME))
-        );
+        if (enderChest) {
+            player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_SUCCESS_ENDER_CHEST)
+                    .replace("{item_amount}", Integer.toString(item.getAmount()))
+                    .replace("{item_name}", itemDisplayName)
+            );
+        } else if (otherTeamChest) {
+            player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_SUCCESS_OTHER_TEAM_CHEST)
+                    .replace("{item_amount}", Integer.toString(item.getAmount()))
+                    .replace("{item_name}", itemDisplayName)
+                    .replace("{team_color}", chestOwner.getColor().chat().toString())
+                    .replace("{team_name}", chestOwner.getDisplayName(Language.getPlayerLanguage(player)))
+            );
+        } else {
+            player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_SUCCESS_TEAM_CHEST)
+                    .replace("{item_amount}", Integer.toString(item.getAmount()))
+                    .replace("{item_name}", itemDisplayName)
+            );
+        }
 
         player.getInventory().setItemInHand(null);
     }
