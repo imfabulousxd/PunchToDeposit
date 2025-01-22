@@ -6,6 +6,7 @@ import com.tomkeuper.bedwars.api.arena.team.ITeam;
 import com.tomkeuper.bedwars.api.events.gameplay.GameEndEvent;
 import com.tomkeuper.bedwars.api.events.gameplay.GameStateChangeEvent;
 import me.dexwi.ClickToDeposit.Messages;
+import me.dexwi.ClickToDeposit.utils.Bedwars;
 import me.dexwi.ClickToDeposit.utils.Hologram;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -44,8 +45,14 @@ public class GameStateListener implements Listener {
                             gameChestLocations.get(arena).put(team, block.getLocation());
 
                             Hologram chestHologram = new Hologram(block.getLocation(), Messages.CHEST_HOLOGRAM);
-                            for (Player player: team.getMembers()) {
-                                chestHologram.displayFor(player);
+                            if (Bedwars.isEliminated(team)) {
+                                for (Player player: arena.getPlayers()) {
+                                    chestHologram.displayFor(player);
+                                }
+                            } else {
+                                for (Player player: team.getMembers()) {
+                                    chestHologram.displayFor(player);
+                                }
                             }
                             chestHolograms.put(block.getLocation(), chestHologram);
 

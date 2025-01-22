@@ -6,6 +6,7 @@ import com.tomkeuper.bedwars.api.arena.team.ITeam;
 import com.tomkeuper.bedwars.api.language.Language;
 import me.dexwi.ClickToDeposit.ClickToDeposit;
 import me.dexwi.ClickToDeposit.Messages;
+import me.dexwi.ClickToDeposit.utils.Bedwars;
 import me.dexwi.ClickToDeposit.utils.Blocks;
 import me.dexwi.ClickToDeposit.utils.DepositableItem;
 import org.bukkit.Location;
@@ -63,7 +64,7 @@ public class BlockStateListener implements Listener {
             ITeam chestOwner = chestOwner(arena, block);
             if (chestOwner == null) {
                 return;
-            } else if (chestOwner != arena.getTeam(player)) {
+            } else if (chestOwner != arena.getTeam(player) && !Bedwars.isEliminated(chestOwner)) {
                 player.sendMessage(Language.getMsg(player, Messages.DEPOSIT_FAILURE_NOT_ELIMINATED_TEAM_CHEST)
                         .replace("{team_color}", chestOwner.getColor().chat().toString())
                         .replace("{team_name}", chestOwner.getDisplayName(Language.getPlayerLanguage(player)))
