@@ -1,9 +1,9 @@
 package me.dexwi.ClickToDeposit.listeners;
 
-import com.andrei1058.bedwars.api.arena.IArena;
-import com.andrei1058.bedwars.api.arena.team.ITeam;
-import com.andrei1058.bedwars.api.events.player.PlayerKillEvent;
-import com.andrei1058.bedwars.api.events.player.PlayerReSpawnEvent;
+import com.tomkeuper.bedwars.api.arena.IArena;
+import com.tomkeuper.bedwars.api.arena.team.ITeam;
+import com.tomkeuper.bedwars.api.events.player.PlayerKillEvent;
+import com.tomkeuper.bedwars.api.events.player.PlayerReSpawnEvent;
 import me.dexwi.ClickToDeposit.utils.Bedwars;
 import me.dexwi.ClickToDeposit.utils.Hologram;
 import org.bukkit.Location;
@@ -39,13 +39,13 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void playerEliminated(PlayerKillEvent event) {
         Player victim = event.getVictim();
-        ITeam victimTeam = event.getVictimTeam();
+        IArena arena = event.getArena();
+        ITeam victimTeam = arena.getTeam(event.getVictim());
 
         if (!victimTeam.isBedDestroyed()) {
             return;
         }
 
-        IArena arena = event.getArena();
         for (ITeam team: arena.getTeams()) {
             if (Bedwars.isEliminated(team)) {
                 Hologram chestHologram = chestHolograms.get(gameChestLocations.get(arena).get(team));

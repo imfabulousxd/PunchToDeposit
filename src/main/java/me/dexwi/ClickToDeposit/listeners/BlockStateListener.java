@@ -1,9 +1,9 @@
 package me.dexwi.ClickToDeposit.listeners;
 
-import com.andrei1058.bedwars.api.BedWars;
-import com.andrei1058.bedwars.api.arena.IArena;
-import com.andrei1058.bedwars.api.arena.team.ITeam;
-import com.andrei1058.bedwars.api.language.Language;
+import com.tomkeuper.bedwars.api.BedWars;
+import com.tomkeuper.bedwars.api.arena.IArena;
+import com.tomkeuper.bedwars.api.arena.team.ITeam;
+import com.tomkeuper.bedwars.api.language.Language;
 import me.dexwi.ClickToDeposit.ClickToDeposit;
 import me.dexwi.ClickToDeposit.Messages;
 import me.dexwi.ClickToDeposit.utils.Bedwars;
