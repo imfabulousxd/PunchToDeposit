@@ -38,6 +38,17 @@ public class BlockStateListener implements Listener {
 
     @EventHandler
     public void blockBreakingEvent(BlockDamageEvent event) {
+        Player player = event.getPlayer();
+        if (player == null) {
+            return;
+        }
+
+        ItemStack item = event.getItemInHand();
+        if (item != null && isToolWeaponOrShears(item.getType())) {
+            event.setCancelled(true);
+            return;
+        }
+
         Block block = event.getBlock();
         boolean enderChest = block.getType() == Material.ENDER_CHEST;
         boolean teamChest = block.getType() == Material.CHEST;
@@ -45,15 +56,10 @@ public class BlockStateListener implements Listener {
             return;
         }
 
-        ItemStack item = event.getItemInHand();
         if (item == null || item.getAmount() == 0) {
             return;
         }
 
-        Player player = event.getPlayer();
-        if (player == null) {
-            return;  // Maybe unnecessary?
-        }
         BedWars.ArenaUtil arenaUtil = ClickToDeposit.bedwars.getArenaUtil();
 
         IArena arena = arenaUtil.getArenaByPlayer(player);
@@ -125,11 +131,16 @@ public class BlockStateListener implements Listener {
         player.getInventory().setItemInHand(null);
     }
 
+    private boolean isToolWeaponOrShears(Material material) {
+        return material.name().endsWith("_SWORD") ||
+                material.name().endsWith("_AXE") ||
+                material.name().endsWith("_PICKAXE") ||
+                material == Material.SHEARS;
+    }
+
     private static ITeam chestOwner(IArena a, Block block) {
         for (Map.Entry<ITeam, Location> entry: gameChestLocations.get(a).entrySet()) {
-            if (
-                    Blocks.locationEquals(entry.getValue(), block.getLocation())
-            ) {
+            if (Blocks.locationEquals(entry.getValue(), block.getLocation())) {
                 return entry.getKey();
             }
         }
