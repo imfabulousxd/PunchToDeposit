@@ -13,21 +13,38 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Hologram implements Listener {
-//    private final EntityArmorStand armorStand;
-    private final CraftArmorStand armorStand;
+    private final CraftArmorStand armorStandLine1;
+    private final CraftArmorStand armorStandLine2;
     private final Set<Player> displayingFor = new HashSet<>();
-    private final String path;
+    private final String path1;
+    private final String path2;
 
-    public Hologram(Location location, String messagePath) {
-        path = messagePath;
-        EntityArmorStand entityArmorStand = new EntityArmorStand(
+    public Hologram(Location location, String messagePath1, String messagePath2) {
+        path1 = messagePath1;
+        path2 = messagePath2;
+
+        EntityArmorStand entityArmorStand1 = new EntityArmorStand(
                 ((CraftWorld) location.getWorld()).getHandle()
         );
-        entityArmorStand.setLocation(location.getX() + 0.5,
-                location.getY() + 1,
+        entityArmorStand1.setLocation(location.getX() + 0.5,
+                location.getY() + 1.2,
                 location.getZ() + 0.5, 0, 0);
-        armorStand = new CraftArmorStand(((CraftWorld) location.getWorld()).getHandle().getServer(),
-                entityArmorStand);
+        armorStandLine1 = new CraftArmorStand(((CraftWorld) location.getWorld()).getHandle().getServer(),
+                entityArmorStand1);
+        setupArmorStand(armorStandLine1);
+        // line 2
+        EntityArmorStand entityArmorStand2 = new EntityArmorStand(
+                ((CraftWorld) location.getWorld()).getHandle()
+        );
+        entityArmorStand2.setLocation(location.getX() + 0.5,
+                location.getY() + 0.85,
+                location.getZ() + 0.5, 0, 0);
+        armorStandLine2 = new CraftArmorStand(((CraftWorld) location.getWorld()).getHandle().getServer(),
+                entityArmorStand2);
+        setupArmorStand(armorStandLine2);
+    }
+
+    private void setupArmorStand(CraftArmorStand armorStand) {
         armorStand.setGravity(false);
         armorStand.setRemoveWhenFarAway(false);
         armorStand.setVisible(false);
@@ -39,31 +56,34 @@ public class Hologram implements Listener {
     }
 
     public void displayFor(Player player) {
-        armorStand.setCustomName(
-                Language.getMsg(player, path)
-        );
-        PacketPlayOutSpawnEntityLiving packet = new PacketPlayOutSpawnEntityLiving(armorStand.getHandle());
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+        armorStandLine1.setCustomName(Language.getMsg(player, path1));
+        armorStandLine2.setCustomName(Language.getMsg(player, path2));
+
+        PacketPlayOutSpawnEntityLiving packet1 = new PacketPlayOutSpawnEntityLiving(armorStandLine1.getHandle());
+        PacketPlayOutSpawnEntityLiving packet2 = new PacketPlayOutSpawnEntityLiving(armorStandLine2.getHandle());
+
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet1);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet2);
+
         displayingFor.add(player);
     }
 
     public void destroyFor(Player player) {
         boolean removed = displayingFor.remove(player);
         if (removed) {
-            PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(armorStand.getHandle().getId());
-            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+            PacketPlayOutEntityDestroy packet1 = new PacketPlayOutEntityDestroy(armorStandLine1.getHandle().getId());
+            PacketPlayOutEntityDestroy packet2 = new PacketPlayOutEntityDestroy(armorStandLine2.getHandle().getId());
+
+            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet1);
+            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet2);
         }
     }
 
-    private void sendHologramDeletionPacket(Player player) {
-        PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(armorStand.getHandle().getId());
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
-    }
-
     public void destroy() {
-        for (Player player: displayingFor) {
-            sendHologramDeletionPacket(player);
+        for (Player player : displayingFor) {
+            destroyFor(player);
         }
         displayingFor.clear();
     }
 }
+
