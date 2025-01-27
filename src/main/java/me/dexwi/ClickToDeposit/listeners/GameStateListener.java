@@ -44,7 +44,7 @@ public class GameStateListener implements Listener {
                             // Display hologram over it for team players
                             gameChestLocations.get(arena).put(team, block.getLocation());
 
-                            Hologram chestHologram = new Hologram(block.getLocation(), Messages.CHEST_HOLOGRAM);
+                            Hologram chestHologram = new Hologram(block.getLocation(), Messages.CHEST_HOLOGRAM_1, Messages.CHEST_HOLOGRAM_2);
                             if (Bedwars.isEliminated(team)) {
                                 for (Player player: arena.getPlayers()) {
                                     chestHologram.displayFor(player);
@@ -61,7 +61,7 @@ public class GameStateListener implements Listener {
                             // Display hologram over it all players
                             enderChestLocations.get(arena).add(block.getLocation());
 
-                            Hologram enderChestHologram = new Hologram(block.getLocation(), Messages.CHEST_HOLOGRAM);
+                            Hologram enderChestHologram = new Hologram(block.getLocation(), Messages.CHEST_HOLOGRAM_1, Messages.CHEST_HOLOGRAM_2);
                             for (Player player: arena.getPlayers()) {
                                 enderChestHologram.displayFor(player);
                             }
