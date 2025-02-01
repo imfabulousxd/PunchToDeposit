@@ -1,6 +1,6 @@
 package me.dexwi.ClickToDeposit.utils;
 
-import com.tomkeuper.bedwars.api.language.Language;
+import com.andrei1058.bedwars.api.language.Language;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;

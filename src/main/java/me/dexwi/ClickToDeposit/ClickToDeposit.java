@@ -1,8 +1,8 @@
 package me.dexwi.ClickToDeposit;
 
-import com.tomkeuper.bedwars.api.BedWars;
-import com.tomkeuper.bedwars.api.arena.IArena;
-import com.tomkeuper.bedwars.api.arena.team.ITeam;
+import com.andrei1058.bedwars.api.BedWars;
+import com.andrei1058.bedwars.api.arena.IArena;
+import com.andrei1058.bedwars.api.arena.team.ITeam;
 import me.dexwi.ClickToDeposit.listeners.BlockStateListener;
 import me.dexwi.ClickToDeposit.listeners.GameStateListener;
 import me.dexwi.ClickToDeposit.listeners.PlayerListener;
@@ -32,8 +32,8 @@ public class ClickToDeposit extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if (Bukkit.getPluginManager().getPlugin("BedWars2023") == null) {
-            getLogger().severe("Bedwars2023 was not found. Disabling...");
+        if (Bukkit.getPluginManager().getPlugin("BedWars1058") == null) {
+            log.severe("BedWars1058 was not found. Disabling...");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
@@ -46,12 +46,12 @@ public class ClickToDeposit extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new TeamListener(), this);
 
-        getLogger().info("ClickToDeposit Enabled!");
+        log.info("ClickToDeposit Enabled!");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("ClickToDeposit Disabled!");
+        log.info("ClickToDeposit Disabled!");
     }
 
     @SuppressWarnings("unused")

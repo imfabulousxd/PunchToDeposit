@@ -1,8 +1,8 @@
 package me.dexwi.ClickToDeposit.listeners;
 
-import com.tomkeuper.bedwars.api.arena.IArena;
-import com.tomkeuper.bedwars.api.arena.team.ITeam;
-import com.tomkeuper.bedwars.api.events.team.TeamEliminatedEvent;
+import com.andrei1058.bedwars.api.arena.IArena;
+import com.andrei1058.bedwars.api.arena.team.ITeam;
+import com.andrei1058.bedwars.api.events.team.TeamEliminatedEvent;
 import me.dexwi.ClickToDeposit.utils.Hologram;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

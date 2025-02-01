@@ -1,9 +1,9 @@
 package me.dexwi.ClickToDeposit.listeners;
 
-import com.tomkeuper.bedwars.api.arena.IArena;
-import com.tomkeuper.bedwars.api.arena.team.ITeam;
-import com.tomkeuper.bedwars.api.events.player.PlayerKillEvent;
-import com.tomkeuper.bedwars.api.events.player.PlayerReSpawnEvent;
+import com.andrei1058.bedwars.api.arena.IArena;
+import com.andrei1058.bedwars.api.arena.team.ITeam;
+import com.andrei1058.bedwars.api.events.player.PlayerKillEvent;
+import com.andrei1058.bedwars.api.events.player.PlayerReSpawnEvent;
 import me.dexwi.ClickToDeposit.utils.Bedwars;
 import me.dexwi.ClickToDeposit.utils.Hologram;
 import org.bukkit.Location;

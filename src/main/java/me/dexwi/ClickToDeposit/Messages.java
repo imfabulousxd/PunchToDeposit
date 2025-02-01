@@ -1,6 +1,6 @@
 package me.dexwi.ClickToDeposit;
 
-import com.tomkeuper.bedwars.api.language.Language;
+import com.andrei1058.bedwars.api.language.Language;
 
 public class Messages {
     public static final String PATH = "addons.click-to-deposit.";

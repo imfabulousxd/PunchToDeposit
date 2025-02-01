@@ -1,10 +1,10 @@
 package me.dexwi.ClickToDeposit.listeners;
 
-import com.tomkeuper.bedwars.api.arena.GameState;
-import com.tomkeuper.bedwars.api.arena.IArena;
-import com.tomkeuper.bedwars.api.arena.team.ITeam;
-import com.tomkeuper.bedwars.api.events.gameplay.GameEndEvent;
-import com.tomkeuper.bedwars.api.events.gameplay.GameStateChangeEvent;
+import com.andrei1058.bedwars.api.arena.GameState;
+import com.andrei1058.bedwars.api.arena.IArena;
+import com.andrei1058.bedwars.api.arena.team.ITeam;
+import com.andrei1058.bedwars.api.events.gameplay.GameEndEvent;
+import com.andrei1058.bedwars.api.events.gameplay.GameStateChangeEvent;
 import me.dexwi.ClickToDeposit.Messages;
 import me.dexwi.ClickToDeposit.utils.Bedwars;
 import me.dexwi.ClickToDeposit.utils.Hologram;
