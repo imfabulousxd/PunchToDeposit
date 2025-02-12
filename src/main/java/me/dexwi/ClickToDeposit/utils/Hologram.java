@@ -9,6 +9,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,7 +81,7 @@ public class Hologram implements Listener {
     }
 
     public void destroy() {
-        for (Player player : displayingFor) {
+        for (Player player : new ArrayList<>(displayingFor)) {
             destroyFor(player);
         }
         displayingFor.clear();
