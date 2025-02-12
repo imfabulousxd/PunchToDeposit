@@ -49,7 +49,6 @@ public class Messages {
             addDefault(l, DEPOSIT_FAILURE_CHEST_FULL, "&7There's not enough space to deposit x{item_amount} &r{item_name}&r&7 into this chest!");
             addDefault(l, DEPOSIT_FAILURE_MINIMUM_ITEM, "&7You need at least {item_minimum_amount} of this type to deposit.");
             addDefault(l, DEPOSIT_FAILURE_NOT_ELIMINATED_TEAM_CHEST, "&cYou cannot deposit into this chest as {team_color}{team_name} Team&r&c has not been eliminated!");
-
             addDefault(l, CHEST_HOLOGRAM_1, "&7PUNCH TO");
             addDefault(l, CHEST_HOLOGRAM_2, "&7DEPOSIT");
 

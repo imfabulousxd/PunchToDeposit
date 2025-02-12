@@ -33,7 +33,7 @@ public class ClickToDeposit extends JavaPlugin {
     @Override
     public void onEnable() {
         if (Bukkit.getPluginManager().getPlugin("BedWars1058") == null) {
-            log.severe("BedWars1058 was not found. Disabling...");
+            getLogger().severe("BedWars1058 was not found. Disabling...");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
@@ -46,12 +46,12 @@ public class ClickToDeposit extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new TeamListener(), this);
 
-        log.info("ClickToDeposit Enabled!");
+        getLogger().info("ClickToDeposit Enabled!");
     }
 
     @Override
     public void onDisable() {
-        log.info("ClickToDeposit Disabled!");
+        getLogger().info("ClickToDeposit Disabled!");
     }
 
     @SuppressWarnings("unused")

@@ -34,10 +34,12 @@ public class DepositableItem {
 
         items.put(Material.SHEARS, new DepositableItem(null, 2));
         items.put(Material.WOOD_PICKAXE, new DepositableItem(null, 2));
+        items.put(Material.GOLD_PICKAXE, new DepositableItem(null, 2));
         items.put(Material.STONE_PICKAXE, new DepositableItem(null, 2));
         items.put(Material.IRON_PICKAXE, new DepositableItem(null, 2));
         items.put(Material.DIAMOND_PICKAXE, new DepositableItem(null, 2));
         items.put(Material.WOOD_AXE, new DepositableItem(null, 2));
+        items.put(Material.GOLD_AXE, new DepositableItem(null, 2));
         items.put(Material.STONE_AXE, new DepositableItem(null, 2));
         items.put(Material.IRON_AXE, new DepositableItem(null, 2));
         items.put(Material.DIAMOND_AXE, new DepositableItem(null, 2));
