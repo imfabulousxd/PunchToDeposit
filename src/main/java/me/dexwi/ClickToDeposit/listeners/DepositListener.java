@@ -17,7 +17,8 @@ import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -27,10 +28,10 @@ import java.util.Map;
 
 import static me.dexwi.ClickToDeposit.ClickToDeposit.gameChestLocations;
 
-public class BlockStateListener implements Listener {
+public class DepositListener implements Listener {
     private final HashMap<Material, String> materialNames = new HashMap<>();
 
-    public BlockStateListener() {
+    public DepositListener() {
         materialNames.put(Material.IRON_INGOT, Messages.ITEM_NAME_IRON_INGOT);
         materialNames.put(Material.GOLD_INGOT, Messages.ITEM_NAME_GOLD_INGOT);
         materialNames.put(Material.DIAMOND, Messages.ITEM_NAME_DIAMOND);
@@ -38,15 +39,17 @@ public class BlockStateListener implements Listener {
     }
 
     @EventHandler
-    public void blockBreakingEvent(BlockDamageEvent event) {
-        Block block = event.getBlock();
-        boolean enderChest = block.getType() == Material.ENDER_CHEST;
-        boolean teamChest = block.getType() == Material.CHEST;
-        if (!enderChest && !teamChest) {
+    public void playerInteractEvent(PlayerInteractEvent event) {
+        if (event.getAction() != Action.LEFT_CLICK_BLOCK) {
+            return;
+        }
+        Block block = event.getClickedBlock();
+        boolean enderChest;
+        if (!(enderChest = block.getType() == Material.ENDER_CHEST) && !(block.getType() == Material.CHEST)) {
             return;
         }
 
-        ItemStack item = event.getItemInHand();
+        ItemStack item = event.getPlayer().getItemInHand();
         if (item == null || item.getAmount() == 0) {
             return;
         }
@@ -65,7 +68,7 @@ public class BlockStateListener implements Listener {
         boolean otherTeamChest = false;
         Inventory inv;
         ITeam chestOwner = null;
-        if (event.getBlock().getType() == Material.CHEST) {
+        if (block.getType() == Material.CHEST) {
             chestOwner = chestOwner(arena, block);
             if (chestOwner == null) {
                 return;
@@ -78,7 +81,7 @@ public class BlockStateListener implements Listener {
             }
             Chest chest = (Chest) block.getState();
             inv = chest.getInventory();
-        } else if (event.getBlock().getType() == Material.ENDER_CHEST) {
+        } else if (block.getType() == Material.ENDER_CHEST) {
             inv = player.getEnderChest();
         } else {
             return;
@@ -124,7 +127,7 @@ public class BlockStateListener implements Listener {
         }
 
         player.getInventory().setItemInHand(null);
-        player.getWorld().playSound(player.getLocation(), Sound.CHEST_CLOSE, 1, 1);
+        player.getWorld().playSound(block.getLocation(), Sound.CHEST_CLOSE, 1, 1);
     }
 
     private static ITeam chestOwner(IArena a, Block block) {

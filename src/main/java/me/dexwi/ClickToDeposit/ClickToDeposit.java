@@ -3,7 +3,7 @@ package me.dexwi.ClickToDeposit;
 import com.andrei1058.bedwars.api.BedWars;
 import com.andrei1058.bedwars.api.arena.IArena;
 import com.andrei1058.bedwars.api.arena.team.ITeam;
-import me.dexwi.ClickToDeposit.listeners.BlockStateListener;
+import me.dexwi.ClickToDeposit.listeners.DepositListener;
 import me.dexwi.ClickToDeposit.listeners.GameStateListener;
 import me.dexwi.ClickToDeposit.listeners.PlayerListener;
 import me.dexwi.ClickToDeposit.listeners.TeamListener;
@@ -41,7 +41,7 @@ public class ClickToDeposit extends JavaPlugin {
 
         Messages.setupMessages();
 
-        getServer().getPluginManager().registerEvents(new BlockStateListener(), this);
+        getServer().getPluginManager().registerEvents(new DepositListener(), this);
         getServer().getPluginManager().registerEvents(new GameStateListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new TeamListener(), this);
