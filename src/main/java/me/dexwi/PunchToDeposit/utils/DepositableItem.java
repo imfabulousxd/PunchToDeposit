@@ -1,7 +1,7 @@
-package me.dexwi.ClickToDeposit.utils;
+package me.dexwi.PunchToDeposit.utils;
 
 import com.andrei1058.bedwars.api.language.Language;
-import me.dexwi.ClickToDeposit.Messages;
+import me.dexwi.PunchToDeposit.Messages;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 

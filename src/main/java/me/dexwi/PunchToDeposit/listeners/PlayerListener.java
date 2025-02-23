@@ -1,11 +1,11 @@
-package me.dexwi.ClickToDeposit.listeners;
+package me.dexwi.PunchToDeposit.listeners;
 
 import com.andrei1058.bedwars.api.arena.IArena;
 import com.andrei1058.bedwars.api.arena.team.ITeam;
 import com.andrei1058.bedwars.api.events.player.PlayerKillEvent;
 import com.andrei1058.bedwars.api.events.player.PlayerReSpawnEvent;
-import me.dexwi.ClickToDeposit.utils.Bedwars;
-import me.dexwi.ClickToDeposit.utils.Hologram;
+import me.dexwi.PunchToDeposit.utils.Bedwars;
+import me.dexwi.PunchToDeposit.utils.Hologram;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +13,7 @@ import org.bukkit.event.Listener;
 
 import java.util.Map;
 
-import static me.dexwi.ClickToDeposit.ClickToDeposit.*;
+import static me.dexwi.PunchToDeposit.PunchToDeposit.*;
 
 public class PlayerListener implements Listener {
     @EventHandler

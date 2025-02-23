@@ -1,4 +1,4 @@
-package me.dexwi.ClickToDeposit.utils;
+package me.dexwi.PunchToDeposit.utils;
 
 import com.andrei1058.bedwars.api.language.Language;
 import net.minecraft.server.v1_8_R3.*;

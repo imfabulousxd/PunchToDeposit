@@ -1,13 +1,13 @@
-package me.dexwi.ClickToDeposit;
+package me.dexwi.PunchToDeposit;
 
 import com.andrei1058.bedwars.api.BedWars;
 import com.andrei1058.bedwars.api.arena.IArena;
 import com.andrei1058.bedwars.api.arena.team.ITeam;
-import me.dexwi.ClickToDeposit.listeners.DepositListener;
-import me.dexwi.ClickToDeposit.listeners.GameStateListener;
-import me.dexwi.ClickToDeposit.listeners.PlayerListener;
-import me.dexwi.ClickToDeposit.listeners.TeamListener;
-import me.dexwi.ClickToDeposit.utils.Hologram;
+import me.dexwi.PunchToDeposit.listeners.DepositListener;
+import me.dexwi.PunchToDeposit.listeners.GameStateListener;
+import me.dexwi.PunchToDeposit.listeners.PlayerListener;
+import me.dexwi.PunchToDeposit.listeners.TeamListener;
+import me.dexwi.PunchToDeposit.utils.Hologram;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,8 +16,8 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
-public class ClickToDeposit extends JavaPlugin {
-    private static ClickToDeposit instance;
+public class PunchToDeposit extends JavaPlugin {
+    private static PunchToDeposit instance;
     public static BedWars bedwars;
     public static Logger log;
     public static final HashMap<IArena, HashMap<ITeam, Location>> gameChestLocations = new HashMap<>();
@@ -46,16 +46,16 @@ public class ClickToDeposit extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new TeamListener(), this);
 
-        getLogger().info("ClickToDeposit Enabled!");
+        getLogger().info("PunchToDeposit Enabled!");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("ClickToDeposit Disabled!");
+        getLogger().info("PunchToDeposit Disabled!");
     }
 
     @SuppressWarnings("unused")
-    public static ClickToDeposit getInstance() {
+    public static PunchToDeposit getInstance() {
         return instance;
     }
 }

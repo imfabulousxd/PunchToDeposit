@@ -1,6 +1,6 @@
-name: ClickToDeposit
+name: PunchToDeposit
 version: 1.0
-main: me.dexwi.ClickToDeposit.ClickToDeposit
+main: me.dexwi.PunchToDeposit.PunchToDeposit
 api-version: 1.8
 description: A simple Spigot plugin.
 softdepend: [BedWars1058]

@@ -1,14 +1,14 @@
-package me.dexwi.ClickToDeposit.listeners;
+package me.dexwi.PunchToDeposit.listeners;
 
 import com.andrei1058.bedwars.api.arena.IArena;
 import com.andrei1058.bedwars.api.arena.team.ITeam;
 import com.andrei1058.bedwars.api.events.team.TeamEliminatedEvent;
-import me.dexwi.ClickToDeposit.utils.Hologram;
+import me.dexwi.PunchToDeposit.utils.Hologram;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import static me.dexwi.ClickToDeposit.ClickToDeposit.*;
+import static me.dexwi.PunchToDeposit.PunchToDeposit.*;
 
 public class TeamListener implements Listener {
     @EventHandler

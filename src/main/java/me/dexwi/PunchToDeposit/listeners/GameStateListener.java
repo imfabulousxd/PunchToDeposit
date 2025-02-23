@@ -1,13 +1,13 @@
-package me.dexwi.ClickToDeposit.listeners;
+package me.dexwi.PunchToDeposit.listeners;
 
 import com.andrei1058.bedwars.api.arena.GameState;
 import com.andrei1058.bedwars.api.arena.IArena;
 import com.andrei1058.bedwars.api.arena.team.ITeam;
 import com.andrei1058.bedwars.api.events.gameplay.GameEndEvent;
 import com.andrei1058.bedwars.api.events.gameplay.GameStateChangeEvent;
-import me.dexwi.ClickToDeposit.Messages;
-import me.dexwi.ClickToDeposit.utils.Bedwars;
-import me.dexwi.ClickToDeposit.utils.Hologram;
+import me.dexwi.PunchToDeposit.Messages;
+import me.dexwi.PunchToDeposit.utils.Bedwars;
+import me.dexwi.PunchToDeposit.utils.Hologram;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -19,7 +19,7 @@ import org.bukkit.event.Listener;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import static me.dexwi.ClickToDeposit.ClickToDeposit.*;
+import static me.dexwi.PunchToDeposit.PunchToDeposit.*;
 
 public class GameStateListener implements Listener {
     @EventHandler

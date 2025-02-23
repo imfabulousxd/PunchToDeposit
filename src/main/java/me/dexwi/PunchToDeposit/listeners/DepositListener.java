@@ -1,14 +1,14 @@
-package me.dexwi.ClickToDeposit.listeners;
+package me.dexwi.PunchToDeposit.listeners;
 
 import com.andrei1058.bedwars.api.BedWars;
 import com.andrei1058.bedwars.api.arena.IArena;
 import com.andrei1058.bedwars.api.arena.team.ITeam;
 import com.andrei1058.bedwars.api.language.Language;
-import me.dexwi.ClickToDeposit.ClickToDeposit;
-import me.dexwi.ClickToDeposit.Messages;
-import me.dexwi.ClickToDeposit.utils.Bedwars;
-import me.dexwi.ClickToDeposit.utils.Blocks;
-import me.dexwi.ClickToDeposit.utils.DepositableItem;
+import me.dexwi.PunchToDeposit.PunchToDeposit;
+import me.dexwi.PunchToDeposit.Messages;
+import me.dexwi.PunchToDeposit.utils.Bedwars;
+import me.dexwi.PunchToDeposit.utils.Blocks;
+import me.dexwi.PunchToDeposit.utils.DepositableItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -26,7 +26,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.HashMap;
 import java.util.Map;
 
-import static me.dexwi.ClickToDeposit.ClickToDeposit.gameChestLocations;
+import static me.dexwi.PunchToDeposit.PunchToDeposit.gameChestLocations;
 
 public class DepositListener implements Listener {
     private final HashMap<Material, String> materialNames = new HashMap<>();
@@ -58,7 +58,7 @@ public class DepositListener implements Listener {
         if (player == null) {
             return;  // Maybe unnecessary?
         }
-        BedWars.ArenaUtil arenaUtil = ClickToDeposit.bedwars.getArenaUtil();
+        BedWars.ArenaUtil arenaUtil = PunchToDeposit.bedwars.getArenaUtil();
 
         IArena arena = arenaUtil.getArenaByPlayer(player);
         if (arena == null || arena.isSpectator(player) || arena.getRespawnSessions().containsKey(player)) {

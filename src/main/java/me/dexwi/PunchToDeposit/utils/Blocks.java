@@ -1,4 +1,4 @@
-package me.dexwi.ClickToDeposit.utils;
+package me.dexwi.PunchToDeposit.utils;
 
 import org.bukkit.Location;
 

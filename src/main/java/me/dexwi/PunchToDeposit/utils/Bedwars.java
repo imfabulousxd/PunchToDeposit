@@ -1,4 +1,4 @@
-package me.dexwi.ClickToDeposit.utils;
+package me.dexwi.PunchToDeposit.utils;
 
 import com.andrei1058.bedwars.api.arena.team.ITeam;
 

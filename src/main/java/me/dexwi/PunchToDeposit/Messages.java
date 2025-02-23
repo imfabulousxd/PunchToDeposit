@@ -1,4 +1,4 @@
-package me.dexwi.ClickToDeposit;
+package me.dexwi.PunchToDeposit;
 
 import com.andrei1058.bedwars.api.language.Language;
 
